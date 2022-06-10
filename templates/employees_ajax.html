@@ -1,0 +1,15 @@
+{
+ "data":[
+{% for employee in employees %}
+    {"id":"{{ employee.id }}",
+    "name":"{{ employee.name }}",
+    "position":"{{ employee.position }}",
+    "salary":"{{ employee.salary }}",
+    "start_date":"{{ employee.start_date }}",
+    "status":"{{ employee.status }}",
+    "extension":"{{ employee.extension }}",
+    "last_updated":"{{ employee.date_updated }}"
+    }{% if forloop.last %}{% else %},{% endif %}
+{% endfor %}
+    ]
+}

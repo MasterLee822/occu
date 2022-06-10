@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Status Dashboard{% endblock %}
+{% block content %}
+
+<a href="{% url 'employees' %}">Employee Details</a>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Status Dashboard</div>
+  <div class="panel-body"><div class="status_table_holder">
+    <table id="status" class="display" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div></div>
+</div>
+
+
+{% endblock %}

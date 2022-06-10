@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Employees{% endblock %}
+{% block javascript %}
+    <script>
+    var data_package
+    //This function needs to be here to get the CSRF token
+    function post_change(employee_id, items_to_post, do_what){
+        let where_to = "/" + employee_id + "/" + do_what
+        items_to_post["csrfmiddlewaretoken"] = '{{ csrf_token }}'
+        {#$.post( where_to, items_to_post)#}
+        {#  .done(function( data ) {#}
+        {#   print_return_package(data);#}
+        {#   return data#}
+        {#  });#}
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url: where_to,
+          type: 'POST',
+          data: items_to_post,
+          success: function (data) {
+            resolve(data)
+              console.log(data.message)
+              console.log(data.error)
+          },
+          error: function (error) {
+            reject(error)
+          },
+        })
+      })
+
+
+
+        }
+    function print_return_package(data){
+        has_error = data.error
+        console.log(data.employee_id)
+        console.log(data.error)
+        console.log(data.message)
+        data_package  = data
+        console.log("End of print" + data)
+
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'index' %}">Back to status</a>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Employee Details
+    <div class="alert alert-success" id="status_update" style="margin-top: 25px;">
+        <strong>Success!</strong>
+        <div id="status_update_message">Hello World!</div>
+    </div>
+  </div>
+  <div class="panel-body">
+      <table id="detail_table" class="display">
+       <thead>
+          <tr>
+              <th></th>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Salary</th>
+              <th>Last Updated</th>
+          </tr>
+      </thead>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
